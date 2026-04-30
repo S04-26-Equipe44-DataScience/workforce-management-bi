@@ -66,14 +66,14 @@
 
 ---
 
-### Etapa 3 — Banco de Dados (PostgreSQL)
-**Ambiente:** Local (SQLite para dev) / Servidor (PostgreSQL para produção)
+### Etapa 3 — Banco de Dados (MySQL)
+**Ambiente:** MySQL Community Edition (local)
 
 | Ação | Detalhe |
 |---|---|
 | Modelo estrela | Tabelas criadas conforme `docs/data_model.md` |
 | Atualização | ETL faz upsert (insert or update) para não duplicar dados |
-| Backup | Dump mensal antes de cada nova carga |
+| Backup | Dump mensal antes de cada nova carga (`mysqldump`) |
 
 ---
 
@@ -148,20 +148,20 @@
 | Python | 3.11+ |
 | Pandas | 2.x |
 | SQLAlchemy | 2.x |
-| PostgreSQL | 15+ (produção) |
-| SQLite | 3.x (desenvolvimento) |
+| PyMySQL | 1.x (conector Python → MySQL) |
+| MySQL | Community Edition 8.x |
 | Metabase | Open Source — latest |
-| Docker | Para subir Metabase + PostgreSQL localmente |
+| Docker | Para subir o Metabase localmente |
 
 ### Subindo o ambiente local com Docker
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/andreluizr/workforce-management-bi
+git clone https://github.com/S04-26-Equipe44-DataScience/workforce-management-bi
 cd workforce-management-bi
 
-# Subir Metabase + PostgreSQL
-docker-compose up -d
+# Subir Metabase via Docker
+docker run -d -p 3000:3000 --name metabase metabase/metabase
 
 # Instalar dependências Python
 pip install -r requirements.txt

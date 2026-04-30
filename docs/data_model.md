@@ -136,6 +136,7 @@ ORDER BY meta_pct DESC;
 
 - [ ] Documentar fluxo completo ponta a ponta
 - [ ] Definir stack tecnológica final
-- [ ] Criar mock data baseado nesse modelo (PostgreSQL / SQLite)
-- [ ] Subir banco local e conectar ao Metabase
+- [ ] Criar mock data baseado nesse modelo (MySQL)
+- [ ] Criar as tabelas no MySQL Workbench
+- [ ] Conectar o MySQL ao Metabase
 - [ ] Criar as primeiras Questions e Dashboard no Metabase

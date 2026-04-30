@@ -57,8 +57,8 @@ Envio ao cliente
 
 | Etapa | Ferramenta |
 |---|---|
-| Extração e Tratamento (ETL) | Python (Pandas) |
-| Banco de Dados | PostgreSQL (produção) / SQLite (desenvolvimento) |
+| Extração e Tratamento (ETL) | Python (Pandas + SQLAlchemy) |
+| Banco de Dados | MySQL Community Edition |
 | Modelagem de Dados | SQL — modelo estrela (fato + dimensões) |
 | Dashboard & Visualização | Metabase |
 | Exportação PDF | Metabase (exportação nativa) |
@@ -73,12 +73,13 @@ Envio ao cliente
 - [x] Definir e validar KPIs com stakeholders
 - [x] Esboçar o modelo de dados (tabelas e relacionamentos)
 - [x] Documentar o fluxo completo ponta a ponta
-- [x] Definir stack tecnológica final (Python + PostgreSQL + Metabase)
+- [x] Definir stack tecnológica final (Python + MySQL + Metabase)
 
 ### S1 — Modelagem de Dados
-- [ ] Criar modelo de dados unificado (fato + dimensões)
+- [x] Criar modelo de dados unificado (fato + dimensões)
+- [ ] Criar mock data e popular as tabelas
 - [ ] Documentar dicionário de dados
-- [ ] Construir pipeline ETL conectando as fontes internas
+- [ ] Construir pipeline ETL em Python conectando os CSVs ao MySQL
 - [ ] Validar integridade e qualidade dos dados
 
 ### S2 — Dashboard
@@ -117,7 +118,7 @@ Envio ao cliente
 ## 📁 Estrutura do Repositório
 
 ```
-globalforce-workforce-bi/
+workforce-management-bi/
 │
 ├── data/
 │   ├── raw/              # Dados brutos das fontes internas
