@@ -176,5 +176,5 @@ dim_regiao (region_id) ───────────────────
 - [x] Criar modelo de dados unificado
 - [x] Criar mock data e popular as tabelas
 - [x] Documentar dicionário de dados
-- [ ] Construir pipeline ETL em Python conectando os CSVs ao MySQL
-- [ ] Validar integridade e qualidade dos dados
+- [x] Construir pipeline ETL em Python conectando os CSVs ao MySQL
+- [x] Validar integridade e qualidade dos dados

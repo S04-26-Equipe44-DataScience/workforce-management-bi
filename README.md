@@ -62,6 +62,7 @@ Envio ao cliente
 | Modelagem de Dados | SQL — modelo estrela (fato + dimensões) |
 | Dashboard & Visualização | Metabase |
 | Exportação PDF | Metabase (exportação nativa) |
+| Versionamento de Dados | Git LFS (Large File Storage) |
 | Documentação | Markdown |
 
 ---
@@ -83,16 +84,16 @@ Envio ao cliente
 - [x] Construir pipeline ETL em Python conectando os CSVs ao MySQL
 - [x] Validar integridade e qualidade dos dados
 
-### S2 — Dashboard 🔄 *em andamento*
-- [ ] Desenvolver dashboard interativo com KPIs executivos
-- [ ] Implementar filtros por período, região e cliente
-- [ ] Criar visualizações claras e adequadas para nível executivo
-- [ ] Validar dados com cenários reais
+### S2 — Dashboard ✅ *concluída*
+- [x] Desenvolver dashboard interativo com KPIs executivos
+- [x] Implementar filtros por período, região e cliente
+- [x] Criar visualizações claras e adequadas para nível executivo
+- [x] Validar dados com cenários reais
 
-### S3 — Automação e Relatório PDF
+### S3 — Automação e Relatório PDF 🔄 *em andamento*
 - [ ] Configurar geração automática do PDF com um clique
-- [ ] Automatizar atualização do pipeline de dados
-- [ ] Testar fluxo completo ponta a ponta
+- [/] Automatizar atualização do pipeline de dados (`etl/pipeline.py`)
+- [/] Testar fluxo completo ponta a ponta
 - [ ] Ajustes e correções com base nos testes
 
 ### S4 — Entregáveis Finais
@@ -109,10 +110,10 @@ Envio ao cliente
 | Entregável | Status |
 |---|---|
 | Proposta Conceitual | 🔲 Pendente |
-| Demo funcional | 🔲 Pendente |
+| Demo funcional | 🔄 Em andamento |
 | Documentação técnica | ✅ Concluída |
 | Análise de Mercado | 🔲 Pendente |
-| Protótipo | 🔲 Pendente |
+| Protótipo | ✅ Concluído |
 
 ---
 
@@ -163,6 +164,11 @@ workforce-management-bi/
 ### Instalação
 
 ```bash
+# 1. Instalar Git LFS (necessário para baixar o dataset de 269MB)
+git lfs install
+git lfs pull
+
+# 2. Instalar dependências Python
 pip install pandas numpy sqlalchemy pymysql faker
 ```
 
