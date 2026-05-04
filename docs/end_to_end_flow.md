@@ -19,7 +19,7 @@
 └──────────────────────────┬──────────────────────────────────────┘
                            ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                   BANCO DE DADOS (PostgreSQL)                   │
+│                   BANCO DE DADOS (MySQL)                        │
 │   fato_workforce │ dim_colaborador │ dim_data │ dim_regiao       │
 │                  │                             │ dim_cliente     │
 └──────────────────────────┬──────────────────────────────────────┘
@@ -52,7 +52,7 @@
 ---
 
 ### Etapa 2 — Pipeline ETL (Python)
-**Script:** `etl/pipeline.py`  
+**Script:** `etl/generate_mock_data.py`  
 **Trigger:** Manual ou agendado (cron job mensal)
 
 | Passo | Descrição | Biblioteca |
@@ -61,7 +61,7 @@
 | Limpeza | Remoção de duplicatas, tratamento de nulos, padronização de datas | Pandas |
 | Validação | Checagem de integridade referencial entre as tabelas | Pandas |
 | Transformação | Criação das tabelas fato e dimensão no modelo estrela | Pandas |
-| Carga | Inserção/atualização dos dados no PostgreSQL | SQLAlchemy |
+| Carga | Inserção/atualização dos dados no MySQL | SQLAlchemy + PyMySQL |
 | Log | Registro do resultado da execução (linhas inseridas, erros) | logging |
 
 ---
@@ -82,7 +82,7 @@
 
 | Ação | Detalhe |
 |---|---|
-| Conexão | Metabase conectado ao PostgreSQL via configuração de banco |
+| Conexão | Metabase conectado ao MySQL via configuração de banco |
 | Questions | Queries SQL salvas para cada KPI (Turnover, Custo, Utilização, Metas) |
 | Dashboard | Painel executivo com filtros de Período, Região e Cliente |
 | Atualização | Metabase re-executa as queries automaticamente ao abrir o dashboard |
@@ -131,7 +131,7 @@
 ```
 [ ] Receber os 3 arquivos CSV do período
 [ ] Validar formato e completude dos arquivos
-[ ] Executar: python etl/pipeline.py
+[ ] Executar: python etl/generate_mock_data.py
 [ ] Verificar log de execução (sem erros críticos)
 [ ] Acessar o Metabase e confirmar atualização dos KPIs
 [ ] Aplicar filtros do cliente desejado
@@ -164,10 +164,10 @@ cd workforce-management-bi
 docker run -d -p 3000:3000 --name metabase metabase/metabase
 
 # Instalar dependências Python
-pip install -r requirements.txt
+pip install pandas numpy sqlalchemy pymysql faker
 
-# Executar o pipeline ETL
-python etl/pipeline.py
+# Gerar dados e popular o MySQL
+python etl/generate_mock_data.py
 ```
 
 ---
@@ -180,6 +180,6 @@ python etl/pipeline.py
 | Definição de KPIs | `docs/kpi_definition.md` | ✅ |
 | Modelo de dados | `docs/data_model.md` | ✅ |
 | Fluxo ponta a ponta | `docs/end_to_end_flow.md` | ✅ |
-| Stack tecnológica | Definida (Python + PostgreSQL + Metabase) | ✅ |
+| Stack tecnológica | Definida (Python + MySQL + Metabase) | ✅ |
 
 **S0 concluída. Próxima etapa: S1 — Modelagem de Dados.**
