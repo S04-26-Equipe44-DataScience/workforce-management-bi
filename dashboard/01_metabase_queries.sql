@@ -69,4 +69,3 @@ WHERE 1=1
   [[AND {{date}}]]
 GROUP BY dim_cliente.client_name
 ORDER BY avg_goal_pct DESC;
-
