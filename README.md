@@ -143,6 +143,35 @@ workforce-management-bi/
 
 ---
 
+## 📦 Dependências Python
+
+| Biblioteca | Versão | Descrição |
+|---|---|---|
+| **pandas** | 2.x | Manipulação e tratamento de dados no pipeline ETL |
+| **sqlalchemy** | 2.x | Gerencia a conexão entre Python e MySQL |
+| **pymysql** | 1.x | Conector específico Python → MySQL (usado pelo SQLAlchemy) |
+| **faker** | latest | Geração de dados fictícios realistas para mock data |
+
+### Instalação
+
+```bash
+pip install pandas sqlalchemy pymysql faker
+```
+
+### Fluxo das dependências
+
+```
+faker → gera dados fictícios
+    ↓
+pandas → organiza em tabelas
+    ↓
+sqlalchemy + pymysql → envia ao MySQL
+    ↓
+Metabase → visualiza os dados
+```
+
+---
+
 ## ⚠️ Observações
 
 - Este projeto não implica vínculo empregatício com a GlobalForce
