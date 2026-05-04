@@ -9,7 +9,7 @@
 
 **Modelo Estrela (Star Schema)**
 
-Escolhido por ser o padrão ideal para Power BI: alta performance em consultas, fácil criação de medidas DAX e leitura intuitiva para o usuário final.
+Escolhido por ser o padrão ideal para Metabase: alta performance em consultas, fácil criação de queries SQL e leitura intuitiva para o usuário final.
 
 ---
 
@@ -134,9 +134,9 @@ ORDER BY meta_pct DESC;
 
 ## 6. Próximos Passos (S0 → S1)
 
-- [ ] Documentar fluxo completo ponta a ponta
-- [ ] Definir stack tecnológica final
-- [ ] Criar mock data baseado nesse modelo (MySQL)
+- [x] Documentar fluxo completo ponta a ponta
+- [x] Definir stack tecnológica final
+- [x] Criar mock data baseado nesse modelo (MySQL)
 - [ ] Criar as tabelas no MySQL Workbench
 - [ ] Conectar o MySQL ao Metabase
 - [ ] Criar as primeiras Questions e Dashboard no Metabase

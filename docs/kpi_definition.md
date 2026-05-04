@@ -155,7 +155,7 @@ ORDER BY meta_pct DESC;
 │  FILTROS: Período | Região | Cliente  (Metabase filters) │
 ├──────────┬──────────┬──────────────┬────────────────────┤
 │ Turnover │ Custo    │ Utilização   │ Atingimento        │
-│   3,2%   │ R$450k   │   87%        │   91%              │
+│   3,2%   │ $450k    │   87%        │   91%              │
 ├──────────┴──────────┴──────────────┴────────────────────┤
 │  Gráfico de linha — Evolução mensal dos KPIs             │
 ├─────────────────────────┬───────────────────────────────┤
@@ -182,7 +182,7 @@ ORDER BY meta_pct DESC;
 
 ## 7. Próximos Passos (S0 → S1)
 
-- [ ] Esboçar modelo de dados (tabelas fato e dimensão)
-- [ ] Documentar fluxo completo ponta a ponta
-- [ ] Definir stack tecnológica final
-- [ ] Criar mock data para validação do pipeline ETL
+- [x] Esboçar modelo de dados (tabelas fato e dimensão)
+- [x] Documentar fluxo completo ponta a ponta
+- [x] Definir stack tecnológica final
+- [x] Criar mock data para validação do pipeline ETL

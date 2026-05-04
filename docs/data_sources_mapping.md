@@ -27,10 +27,10 @@ Registra as alocações de cada colaborador por cliente, região e período.
 | `assignment_id` | INT | Identificador único da alocação | 1001 |
 | `employee_id` | INT | Identificador do colaborador | 5042 |
 | `client_id` | INT | Identificador do cliente | 301 |
-| `region` | VARCHAR | Região de alocação | São Paulo |
+| `region` | VARCHAR | Região de alocação | Northeast |
 | `start_date` | DATE | Data de início da alocação | 2024-01-01 |
 | `end_date` | DATE | Data de fim da alocação | 2024-01-31 |
-| `role` | VARCHAR | Cargo/função do colaborador | Analista Sr. |
+| `role` | VARCHAR | Cargo/função do colaborador | Senior |
 | `status` | VARCHAR | Status da alocação | Active / Closed |
 
 ---
@@ -56,12 +56,12 @@ Registra informações dos colaboradores e seus custos associados.
 | Campo | Tipo | Descrição | Exemplo |
 |---|---|---|---|
 | `employee_id` | INT | Identificador único do colaborador | 5042 |
-| `name` | VARCHAR | Nome do colaborador | João Silva |
-| `department` | VARCHAR | Departamento | Tecnologia |
-| `region` | VARCHAR | Região de atuação | São Paulo |
+| `name` | VARCHAR | Nome do colaborador | John Smith |
+| `department` | VARCHAR | Departamento | Engineering |
+| `region` | VARCHAR | Região de atuação | Northeast |
 | `hire_date` | DATE | Data de admissão | 2021-03-15 |
 | `termination_date` | DATE | Data de desligamento (se houver) | NULL |
-| `monthly_cost` | FLOAT | Custo mensal do colaborador (R$) | 8500.00 |
+| `monthly_cost` | FLOAT | Custo mensal do colaborador (USD) | 12000.00 |
 | `status` | VARCHAR | Status atual | Active / Terminated |
 | `goal_achievement` | FLOAT | % de atingimento de metas | 87.5 |
 
@@ -106,7 +106,7 @@ hours (employee_id,           │
 
 ## 6. Próximos Passos (S1)
 
-- [ ] Criar dados sintéticos de exemplo para cada fonte (mock data)
+- [x] Criar dados sintéticos de exemplo para cada fonte (mock data)
 - [ ] Desenvolver script ETL em Python para leitura e tratamento
-- [ ] Construir modelo estrela no Power BI (fato + dimensões)
-- [ ] Documentar dicionário de dados completo
+- [ ] Construir modelo estrela no MySQL e conectar ao Metabase
+- [x] Documentar dicionário de dados completo

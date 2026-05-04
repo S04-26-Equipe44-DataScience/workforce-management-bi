@@ -75,10 +75,11 @@ Envio ao cliente
 - [x] Documentar o fluxo completo ponta a ponta
 - [x] Definir stack tecnológica final (Python + MySQL + Metabase)
 
-### S1 — Modelagem de Dados
+### S1 — Modelagem de Dados 🔄 *em andamento*
 - [x] Criar modelo de dados unificado (fato + dimensões)
-- [ ] Criar mock data e popular as tabelas
-- [ ] Documentar dicionário de dados
+- [x] Gerar mock data sintético (CSV — 3,1M registros / 36 meses)
+- [x] Documentar dicionário de dados
+- [ ] Popular tabelas no MySQL (`etl/generate_mock_data.py`)
 - [ ] Construir pipeline ETL em Python conectando os CSVs ao MySQL
 - [ ] Validar integridade e qualidade dos dados
 
@@ -125,19 +126,23 @@ workforce-management-bi/
 │   └── processed/        # Dados tratados após ETL
 │
 ├── etl/
-│   └── pipeline.py       # Script de extração e transformação
+│   └── generate_mock_data.py  # Script oficial — geração de dados e carga no MySQL
+│
+├── notebooks/                 # Exploração e prototipagem (não usar em produção)
+│   └── Geração de Dados Sintéticos_ GlobalForce USA (2023-2025).ipynb
 │
 ├── dashboard/
-│   └── metabase_setup.md # Configuração e queries do Metabase
+│   └── metabase_setup.md      # Configuração e queries do Metabase
 │
 ├── docs/
-│   ├── data_model.md     # Documentação do modelo de dados
-│   ├── data_dictionary.md# Dicionário de dados
-│   └── user_manual.md    # Manual do usuário
+│   ├── data_model.md          # Documentação do modelo de dados
+│   ├── data_dictionary.md     # Dicionário de dados
+│   └── user_manual.md         # Manual do usuário
 │
 ├── reports/
-│   └── templates/        # Templates de relatório PDF
+│   └── templates/             # Templates de relatório PDF
 │
+├── globalforce_usa_3years_2023_2025.csv  # Dataset sintético (3,1M registros)
 └── README.md
 ```
 
@@ -148,6 +153,7 @@ workforce-management-bi/
 | Biblioteca | Versão | Descrição |
 |---|---|---|
 | **pandas** | 2.x | Manipulação e tratamento de dados no pipeline ETL |
+| **numpy** | 1.x | Operações vetorizadas para geração dos dados sintéticos |
 | **sqlalchemy** | 2.x | Gerencia a conexão entre Python e MySQL |
 | **pymysql** | 1.x | Conector específico Python → MySQL (usado pelo SQLAlchemy) |
 | **faker** | latest | Geração de dados fictícios realistas para mock data |
@@ -155,7 +161,7 @@ workforce-management-bi/
 ### Instalação
 
 ```bash
-pip install pandas sqlalchemy pymysql faker
+pip install pandas numpy sqlalchemy pymysql faker
 ```
 
 ### Fluxo das dependências
