@@ -47,7 +47,7 @@ Envio ao cliente
 | Indicador | Descrição |
 |---|---|
 | **Turnover** | Taxa de rotatividade de colaboradores por período |
-| **Custo por Região** | Distribuição de custos de workforce por localidade |
+| **Custo por Região** | Distribuição de custos de workforce por região (USD) |
 | **Utilização de Capacidade** | % de ocupação da força de trabalho disponível |
 | **Atingimento de Metas** | Performance vs. metas estabelecidas por cliente |
 
@@ -75,15 +75,15 @@ Envio ao cliente
 - [x] Documentar o fluxo completo ponta a ponta
 - [x] Definir stack tecnológica final (Python + MySQL + Metabase)
 
-### S1 — Modelagem de Dados 🔄 *em andamento*
+### S1 — Modelagem de Dados ✅ *concluída*
 - [x] Criar modelo de dados unificado (fato + dimensões)
 - [x] Gerar mock data sintético (CSV — 3,1M registros / 36 meses)
 - [x] Documentar dicionário de dados
-- [ ] Popular tabelas no MySQL (`etl/generate_mock_data.py`)
-- [ ] Construir pipeline ETL em Python conectando os CSVs ao MySQL
-- [ ] Validar integridade e qualidade dos dados
+- [x] Popular tabelas no MySQL (`etl/pipeline.py`)
+- [x] Construir pipeline ETL em Python conectando os CSVs ao MySQL
+- [x] Validar integridade e qualidade dos dados
 
-### S2 — Dashboard
+### S2 — Dashboard 🔄 *em andamento*
 - [ ] Desenvolver dashboard interativo com KPIs executivos
 - [ ] Implementar filtros por período, região e cliente
 - [ ] Criar visualizações claras e adequadas para nível executivo
@@ -110,7 +110,7 @@ Envio ao cliente
 |---|---|
 | Proposta Conceitual | 🔲 Pendente |
 | Demo funcional | 🔲 Pendente |
-| Documentação técnica | 🔲 Pendente |
+| Documentação técnica | ✅ Concluída |
 | Análise de Mercado | 🔲 Pendente |
 | Protótipo | 🔲 Pendente |
 
@@ -126,7 +126,7 @@ workforce-management-bi/
 │   └── processed/        # Dados tratados após ETL
 │
 ├── etl/
-│   └── generate_mock_data.py  # Script oficial — geração de dados e carga no MySQL
+│   └── pipeline.py       # Script oficial — geração de dados e carga no MySQL
 │
 ├── notebooks/                 # Exploração e prototipagem (não usar em produção)
 │   └── Geração de Dados Sintéticos_ GlobalForce USA (2023-2025).ipynb
@@ -135,9 +135,11 @@ workforce-management-bi/
 │   └── metabase_setup.md      # Configuração e queries do Metabase
 │
 ├── docs/
-│   ├── data_model.md          # Documentação do modelo de dados
-│   ├── data_dictionary.md     # Dicionário de dados
-│   └── user_manual.md         # Manual do usuário
+│   ├── 01_data_sources_mapping.md # Mapeamento de fontes
+│   ├── 02_kpi_definition.md       # Definição de KPIs
+│   ├── 03_data_model.md           # Modelo de dados
+│   ├── 04_data_dictionary.md      # Dicionário de dados
+│   └── 05_end_to_end_flow.md      # Fluxo ponta a ponta
 │
 ├── reports/
 │   └── templates/             # Templates de relatório PDF
@@ -180,9 +182,9 @@ Metabase → visualiza os dados
 
 ## ⚠️ Observações
 
-- Este projeto não implica vínculo empregatício com a GlobalForce
 - A equipe tem liberdade para definir funcionalidades e soluções criativas onde os detalhes não forem especificados
 - Dados sensíveis de clientes devem ser anonimizados nos ambientes de desenvolvimento e teste
+- A base de dados sintética de 3.1M de registros serve como base para validação de performance do pipeline
 
 ---
 

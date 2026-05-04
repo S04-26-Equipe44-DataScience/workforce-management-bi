@@ -34,7 +34,7 @@ Tabela central do modelo. Cada linha representa um registro mensal de um colabor
 | `worked_hours` | FLOAT | Não | Horas efetivamente trabalhadas no período | 152.5 |
 | `planned_hours` | FLOAT | Não | Horas planejadas para o período | 160.0 |
 | `overtime_hours` | FLOAT | Não | Horas extras (worked - planned, mín. 0) | 8.0 |
-| `monthly_cost` | FLOAT | Não | Custo mensal do colaborador em R$ | 8500.00 |
+| `monthly_cost` | FLOAT | Não | Custo mensal do colaborador em USD | 8500.00 |
 | `goal_achievement` | FLOAT | Não | % de atingimento de metas (0-100) | 87.5 |
 
 **Regras de negócio:**
@@ -57,7 +57,7 @@ Cadastro completo dos colaboradores da GlobalForce.
 | `region` | VARCHAR(100) | Não | Região de atuação | São Paulo |
 | `hire_date` | DATE | Não | Data de admissão | 2021-03-15 |
 | `termination_date` | DATE | Sim | Data de desligamento (NULL = ativo) | 2024-06-30 |
-| `monthly_cost` | FLOAT | Não | Custo mensal em R$ | 8500.00 |
+| `monthly_cost` | FLOAT | Não | Custo mensal em USD | 8500.00 |
 | `status` | VARCHAR(20) | Não | Status atual | Active / Terminated |
 | `goal_achievement` | FLOAT | Não | % médio de atingimento de metas | 87.5 |
 
@@ -89,28 +89,23 @@ Tabela calendário para análise temporal dos KPIs.
 ---
 
 ### `dim_regiao`
-Regiões geográficas de atuação dos colaboradores.
+Regiões geográficas de atuação (Padrão US Census).
 
 | Campo | Tipo | Nulo | Descrição | Exemplo |
 |---|---|---|---|---|
 | `region_id` | INT | Não | Chave primária | 1 |
-| `region_name` | VARCHAR(100) | Não | Nome da cidade/região | São Paulo |
-| `state` | VARCHAR(100) | Não | Estado (sigla) | SP |
-| `country` | VARCHAR(100) | Não | País | Brasil |
-| `timezone` | VARCHAR(50) | Não | Fuso horário | America/Sao_Paulo |
+| `region_name` | VARCHAR(100) | Não | Nome da região macro | Northeast |
+| `state` | VARCHAR(10) | Não | Estado (sigla) | NY |
+| `country` | VARCHAR(100) | Não | País | USA |
 
 **Regiões cadastradas:**
 
-| region_id | region_name | state |
+| region_id | region_name | Estados (Exemplos) |
 |---|---|---|
-| 1 | São Paulo | SP |
-| 2 | Rio de Janeiro | RJ |
-| 3 | Belo Horizonte | MG |
-| 4 | Curitiba | PR |
-| 5 | Porto Alegre | RS |
-| 6 | Salvador | BA |
-| 7 | Recife | PE |
-| 8 | Fortaleza | CE |
+| 1 | Northeast | NY, MA, PA, NJ, CT |
+| 2 | Midwest | IL, OH, MI, IN, WI |
+| 3 | South | TX, FL, GA, NC, VA |
+| 4 | West | CA, WA, AZ, CO, OR |
 
 ---
 
@@ -135,7 +130,7 @@ Alocações de colaboradores por cliente e função.
 | 4 | Holding Delta |
 | 5 | Conglomerado Epsilon |
 
-**Funções disponíveis:** Analista Jr. · Analista Sr. · Consultor · Especialista · Coordenador
+**Funções disponíveis:** Associate · Specialist · Senior · Manager · Director
 
 ---
 
