@@ -52,17 +52,16 @@
 ---
 
 ### Etapa 2 — Pipeline ETL (Python)
-**Script:** `etl/generate_mock_data.py`  
+**Script:** `etl/pipeline.py`  
 **Trigger:** Manual ou agendado (cron job mensal)
 
 | Passo | Descrição | Biblioteca |
 |---|---|---|
-| Extração | Leitura dos CSVs da pasta `/data/raw/` | Pandas |
-| Limpeza | Remoção de duplicatas, tratamento de nulos, padronização de datas | Pandas |
-| Validação | Checagem de integridade referencial entre as tabelas | Pandas |
-| Transformação | Criação das tabelas fato e dimensão no modelo estrela | Pandas |
-| Carga | Inserção/atualização dos dados no MySQL | SQLAlchemy + PyMySQL |
-| Log | Registro do resultado da execução (linhas inseridas, erros) | logging |
+| Extração | Leitura do CSV consolidado de 3.1M de registros | Pandas |
+| Transformação | Normalização dos dados e criação das dimensões (Colaborador, Região, Data) | Pandas |
+| Cliente | Atribuição de registros a clientes para permitir filtros no dashboard | NumPy |
+| Carga | Inserção otimizada via chunks no MySQL | SQLAlchemy + PyMySQL |
+| Log | Registro de progresso a cada 500k registros processados | Print/Console |
 
 ---
 
@@ -71,7 +70,7 @@
 
 | Ação | Detalhe |
 |---|---|
-| Modelo estrela | Tabelas criadas conforme `docs/data_model.md` |
+| Modelo estrela | Tabelas criadas conforme `docs/03_data_model.md` |
 | Atualização | ETL faz upsert (insert or update) para não duplicar dados |
 | Backup | Dump mensal antes de cada nova carga (`mysqldump`) |
 
@@ -129,10 +128,9 @@
 ## 5. Checklist de Execução Mensal
 
 ```
-[ ] Receber os 3 arquivos CSV do período
-[ ] Validar formato e completude dos arquivos
-[ ] Executar: python etl/generate_mock_data.py
-[ ] Verificar log de execução (sem erros críticos)
+[ ] Validar a presença do arquivo globalforce_usa_3years_2023_2025.csv
+[ ] Executar: python etl/pipeline.py
+[ ] Verificar log de execução (confirmação de 3.1M de registros)
 [ ] Acessar o Metabase e confirmar atualização dos KPIs
 [ ] Aplicar filtros do cliente desejado
 [ ] Exportar PDF do relatório executivo
@@ -166,8 +164,8 @@ docker run -d -p 3000:3000 --name metabase metabase/metabase
 # Instalar dependências Python
 pip install pandas numpy sqlalchemy pymysql faker
 
-# Gerar dados e popular o MySQL
-python etl/generate_mock_data.py
+# Executar o pipeline ETL (Processamento e Carga)
+python etl/pipeline.py
 ```
 
 ---
@@ -176,10 +174,10 @@ python etl/generate_mock_data.py
 
 | Entregável | Arquivo | Status |
 |---|---|---|
-| Mapeamento de fontes | `docs/data_sources_mapping.md` | ✅ |
-| Definição de KPIs | `docs/kpi_definition.md` | ✅ |
-| Modelo de dados | `docs/data_model.md` | ✅ |
-| Fluxo ponta a ponta | `docs/end_to_end_flow.md` | ✅ |
+| Mapeamento de fontes | `docs/01_data_sources_mapping.md` | ✅ |
+| Definição de KPIs | `docs/02_kpi_definition.md` | ✅ |
+| Modelo de dados | `docs/03_data_model.md` | ✅ |
+| Fluxo ponta a ponta | `docs/05_end_to_end_flow.md` | ✅ |
 | Stack tecnológica | Definida (Python + MySQL + Metabase) | ✅ |
 
 **S0 concluída. Próxima etapa: S1 — Modelagem de Dados.**
