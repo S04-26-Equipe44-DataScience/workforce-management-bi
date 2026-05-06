@@ -14,7 +14,7 @@ from playwright.sync_api import sync_playwright
 
 # --- CONFIGURAÇÕES ---
 # Substitua pela URL pública do seu dashboard no Metabase
-METABASE_DASHBOARD_URL = "http://localhost:3000/public/dashboard/seu-uuid-aqui"
+METABASE_DASHBOARD_URL = "http://localhost:3000/public/dashboard/fdd35251-f505-420d-bc1c-636aa5b1cb14"
 OUTPUT_DIR = "reports"
 
 def ensure_output_dir():
