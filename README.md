@@ -90,10 +90,10 @@ Envio ao cliente
 - [x] Criar visualizações claras e adequadas para nível executivo
 - [x] Validar dados com cenários reais
 
-### S3 — Automação e Relatório PDF 🔄 *em andamento*
-- [ ] Configurar geração automática do PDF com um clique
-- [/] Automatizar atualização do pipeline de dados (`etl/pipeline.py`)
-- [/] Testar fluxo completo ponta a ponta
+### S3 — Automação e Relatório PDF ✅ *concluída*
+- [x] Configurar geração automática do PDF com um clique (`etl/report_generator.py`)
+- [x] Automatizar atualização do pipeline de dados (`etl/pipeline.py`)
+- [x] Testar fluxo completo ponta a ponta
 - [ ] Ajustes e correções com base nos testes
 
 ### S4 — Entregáveis Finais
@@ -160,6 +160,7 @@ workforce-management-bi/
 | **sqlalchemy** | 2.x | Gerencia a conexão entre Python e MySQL |
 | **pymysql** | 1.x | Conector específico Python → MySQL (usado pelo SQLAlchemy) |
 | **faker** | latest | Geração de dados fictícios realistas para mock data |
+| **playwright** | latest | Motor de navegador headless para geração de PDFs |
 
 ### Instalação
 
@@ -169,7 +170,10 @@ git lfs install
 git lfs pull
 
 # 2. Instalar dependências Python
-pip install pandas numpy sqlalchemy pymysql faker
+pip install pandas numpy sqlalchemy pymysql faker playwright
+
+# 3. Instalar drivers do navegador para o Playwright
+playwright install chromium
 ```
 
 ### Fluxo das dependências

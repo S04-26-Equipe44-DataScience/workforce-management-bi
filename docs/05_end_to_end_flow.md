@@ -94,8 +94,8 @@
 | Ação | Detalhe |
 |---|---|
 | Revisão | Analista verifica os KPIs no dashboard após a carga |
-| Filtros | Seleciona o cliente e o período desejado |
-| Exportação | Clica em "Download PDF" no Metabase para gerar o relatório |
+| Filtros | Define os parâmetros no script de geração |
+| Exportação | Executa `python etl/report_generator.py` para gerar PDFs em lote |
 | Envio | Gerente de Conta envia o PDF ao cliente por e-mail |
 
 ---
@@ -128,12 +128,12 @@
 ## 5. Checklist de Execução Mensal
 
 ```
-[ ] Validar a presença do arquivo globalforce_usa_3years_2023_2025.csv
-[ ] Executar: python etl/pipeline.py
-[ ] Verificar log de execução (confirmação de 3.1M de registros)
+[x] Validar a presença do arquivo globalforce_usa_3years_2023_2025.csv
+[x] Executar: python etl/pipeline.py
+[x] Verificar log de execução (confirmação de 3.1M de registros)
 [ ] Acessar o Metabase e confirmar atualização dos KPIs
-[ ] Aplicar filtros do cliente desejado
-[ ] Exportar PDF do relatório executivo
+[ ] Executar: python etl/report_generator.py
+[ ] Validar arquivos PDF na pasta /reports
 [ ] Enviar ao cliente
 ```
 
