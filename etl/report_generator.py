@@ -36,22 +36,23 @@ def generate_report(client_name, region=None, period=None):
         )
         page = context.new_page()
 
-        # Constrói a URL com filtros
-        # No Metabase, filtros públicos usam query params: ?nome_do_filtro=valor
-        params = [f"client={client_name}"]
-        if region: params.append(f"region={region}")
-        if period: params.append(f"date={period}")
+        # Constrói a URL com filtros tratando espaços corretamente
+        import urllib.parse
+        params = {"client": client_name}
+        if region: params["region"] = region
+        if period: params["date"] = period
         
-        url_with_filters = f"{METABASE_DASHBOARD_URL}?{'&'.join(params)}"
+        url_with_filters = f"{METABASE_DASHBOARD_URL}?{urllib.parse.urlencode(params)}"
         
         print(f"--- Acessando: {url_with_filters}")
         
         try:
-            # Acessa a página e aguarda o carregamento dos gráficos
-            page.goto(url_with_filters, wait_until="networkidle")
+            # Acessa a página e aguarda o carregamento inicial
+            page.goto(url_with_filters, wait_until="load")
             
-            # Tempo extra para garantir que as animações do Metabase terminem
-            time.sleep(5) 
+            # Aguarda o tempo necessário para o Metabase processar os 3.1M de registros
+            print("--- Aguardando processamento dos dados (20s)...")
+            time.sleep(20) 
             
             # Caminho do arquivo final
             filename = f"Relatorio_Executivo_{client_name.replace(' ', '_')}_{time.strftime('%Y%m%d')}.pdf"

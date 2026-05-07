@@ -140,7 +140,8 @@ workforce-management-bi/
 │   ├── 02_kpi_definition.md       # Definição de KPIs
 │   ├── 03_data_model.md           # Modelo de dados
 │   ├── 04_data_dictionary.md      # Dicionário de dados
-│   └── 05_end_to_end_flow.md      # Fluxo ponta a ponta
+│   ├── 05_end_to_end_flow.md      # Fluxo ponta a ponta
+│   └── 06_automated_email_delivery.md # Guia: Automação de E-mail
 │
 ├── reports/
 │   └── templates/             # Templates de relatório PDF
