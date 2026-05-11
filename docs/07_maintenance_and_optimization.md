@@ -1,6 +1,6 @@
 # 🛠️ Guia de Manutenção e Otimização
 **Projeto:** GlobalForce · Workforce Management | BI  
-**Data da Intervenção:** 2026-05-07
+**Data da Intervenção:** 2026-05-11
 
 Este documento registra as correções de conectividade e as otimizações de performance aplicadas para garantir a estabilidade do dashboard com volumes de dados superiores a 3 milhões de registros.
 
@@ -58,3 +58,18 @@ Após quedas de conexão ou recriação de tabelas (via script ETL), o Metabase 
 O sistema atual opera com 3.1M de linhas. Para manter a performance caso o volume aumente:
 - **InnoDB Buffer Pool:** Atualmente em 128MB. Recomenda-se aumentar para **1GB** no arquivo `my.ini` (`innodb_buffer_pool_size=1G`) se houver memória RAM disponível no host.
 - **Evitar Drops:** O script `pipeline.py` faz `DROP TABLE`. Recomenda-se mudar para `TRUNCATE` no futuro para preservar os índices e metadados do Metabase.
+
+---
+
+## 5. Segurança e Proteção de Credenciais
+Em 2026-05-11, o projeto passou por um processo de endurecimento de segurança (Security Hardening) para eliminar vulnerabilidades de exposição de dados.
+
+### Medidas Implementadas:
+- **Variáveis de Ambiente (.env)**: Todas as credenciais de banco de dados foram removidas do código fonte. O projeto agora utiliza a biblioteca `python-dotenv` para carregar as configurações de um arquivo local `.env` que é ignorado pelo Git.
+- **Limpeza de Histórico (Git Purge)**: Foi realizada uma reescrita completa do histórico do repositório utilizando `git-filter-repo` para remover permanentemente qualquer rastro de senhas que tenham sido commitadas acidentalmente no passado.
+- **Rotação de Senha**: A senha do banco de dados foi alterada e sincronizada entre o servidor MySQL, o arquivo `.env` e o painel de administração do Metabase.
+
+### Boas Práticas de Manutenção:
+- Nunca escreva senhas ou chaves de API diretamente nos scripts.
+- Certifique-se de que o arquivo `.env` nunca seja enviado para o GitHub (verifique o `.gitignore`).
+- Ao adicionar novos scripts na pasta `scratch/`, utilize sempre o padrão `os.getenv()` para conexão.
