@@ -12,13 +12,18 @@ import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine, text
 import time
+import os
+from dotenv import load_dotenv
+
+# Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
 
 # --- CONFIGURACOES DE CONEXAO ---
-DB_USER     = "root"
-DB_PASSWORD = "REDACTED_PASSWORD"  
-DB_HOST     = "localhost"
-DB_PORT     = "3306"
-DB_NAME     = "workforce_bi"
+DB_USER     = os.getenv("DB_USER", "root")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST     = os.getenv("DB_HOST", "localhost")
+DB_PORT     = os.getenv("DB_PORT", "3306")
+DB_NAME     = os.getenv("DB_NAME", "workforce_bi")
 CSV_PATH    = "globalforce_usa_3years_2023_2025.csv"
 
 def get_engine():

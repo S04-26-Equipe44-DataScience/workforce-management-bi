@@ -14,14 +14,20 @@ from sqlalchemy import create_engine, text
 import random
 from datetime import date, timedelta
 import warnings
+import os
+from dotenv import load_dotenv
+
+# Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
+
 warnings.filterwarnings("ignore")
 
 # ── CONFIGURAÇÕES ────────────────────────────────────────────
-DB_USER     = "root"
-DB_PASSWORD = "REDACTED_PASSWORD"   # ← substitua pela sua senha do MySQL
-DB_HOST     = "localhost"
-DB_PORT     = "3306"
-DB_NAME     = "workforce_bi"
+DB_USER     = os.getenv("DB_USER", "root")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST     = os.getenv("DB_HOST", "localhost")
+DB_PORT     = os.getenv("DB_PORT", "3306")
+DB_NAME     = os.getenv("DB_NAME", "workforce_bi")
 
 fake = Faker("pt_BR")
 random.seed(42)

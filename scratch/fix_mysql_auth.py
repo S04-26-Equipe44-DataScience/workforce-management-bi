@@ -1,10 +1,15 @@
+import os
 import sqlalchemy
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
 
-DB_USER     = "root"
-DB_PASSWORD = "REDACTED_PASSWORD"  
-DB_HOST     = "localhost"
-DB_PORT     = "3306"
+# Load environment variables
+load_dotenv()
+
+DB_USER     = os.getenv("DB_USER", "root")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST     = os.getenv("DB_HOST", "localhost")
+DB_PORT     = os.getenv("DB_PORT", "3306")
 
 def fix_auth():
     try:
