@@ -34,13 +34,15 @@ Tabela central do modelo. Cada linha representa um registro mensal de um colabor
 | `worked_hours` | FLOAT | Não | Horas efetivamente trabalhadas no período | 152.5 |
 | `planned_hours` | FLOAT | Não | Horas planejadas para o período | 160.0 |
 | `overtime_hours` | FLOAT | Não | Horas extras (worked - planned, mín. 0) | 8.0 |
+| `is_terminated` | INT | Não | Flag de desligamento: 1 apenas no mês do desligamento, 0 nos demais | 0 |
 | `monthly_cost` | FLOAT | Não | Custo mensal do colaborador em USD | 8500.00 |
-| `goal_achievement` | FLOAT | Não | % de atingimento de metas (0-100) | 87.5 |
+| `goal_achievement` | FLOAT | Não | % de atingimento de metas (0-100) — simulado por cliente com médias distintas no pipeline | 88.0 |
 
 **Regras de negócio:**
 - `overtime_hours` = MAX(0, `worked_hours` - `planned_hours`)
-- `goal_achievement` entre 0 e 100
-- Um colaborador pode ter múltiplos registros por período (uma linha por alocação)
+- `goal_achievement` entre 0 e 100, simulado por cliente no pipeline (ver CLIENT_GOAL_PARAMS em pipeline.py)
+- `is_terminated` = 1 apenas no período exato do desligamento do colaborador
+- Um colaborador tem uma linha por período (granularidade mensal)
 
 ---
 
@@ -59,13 +61,13 @@ Cadastro completo dos colaboradores da GlobalForce.
 | `termination_date` | DATE | Sim | Data de desligamento (NULL = ativo) | 2024-06-30 |
 | `monthly_cost` | FLOAT | Não | Custo mensal em USD | 8500.00 |
 | `status` | VARCHAR(20) | Não | Status atual | Active / Terminated |
-| `goal_achievement` | FLOAT | Não | % médio de atingimento de metas | 87.5 |
 
 **Regras de negócio:**
 - `termination_date` NULL indica colaborador ativo
 - `status` = "Active" quando `termination_date` é NULL
 - `status` = "Terminated" quando `termination_date` está preenchida
-- Turnover é calculado com base nos colaboradores com `status` = "Terminated" no período
+- Turnover é calculado via `is_terminated` na `fato_workforce`, não pelo status do colaborador
+- `goal_achievement` não existe em `dim_colaborador` — é simulado por cliente na `fato_workforce` (ver pipeline.py)
 
 ---
 

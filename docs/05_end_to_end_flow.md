@@ -128,14 +128,22 @@
 ## 5. Checklist de Execução Mensal
 
 ```
-[x] Validar a presença do arquivo globalforce_usa_3years_2023_2025.csv
-[x] Executar: python etl/pipeline.py
-[x] Verificar log de execução (confirmação de 3.1M de registros)
-[ ] Acessar o Metabase e confirmar atualização dos KPIs
+[ ] Substituir o CSV pelo arquivo atualizado do período (manter o nome original)
+[ ] Executar: python etl/pipeline.py
+[ ] Verificar log de execução (confirmar total de registros processados)
+[ ] Acessar Metabase → Admin → Databases → workforce_bi e executar em ordem:
+    [ ] Discard cached field values
+    [ ] Rescan field values
+    [ ] Sync database schema
+[ ] Acessar o dashboard e confirmar atualização dos KPIs
 [ ] Executar: python etl/report_generator.py
 [ ] Validar arquivos PDF na pasta /reports
 [ ] Enviar ao cliente
 ```
+
+> ⚠️ O passo de Rescan + Sync no Metabase é **obrigatório** após cada execução do pipeline.
+> Sem ele, o Metabase pode exibir o erro `TypeError: Cannot read properties of undefined`
+> por usar metadados de colunas em cache da execução anterior.
 
 ---
 
@@ -162,7 +170,7 @@ cd workforce-management-bi
 docker run -d -p 3000:3000 --name metabase metabase/metabase
 
 # Instalar dependências Python
-pip install pandas numpy sqlalchemy pymysql faker
+pip install pandas numpy sqlalchemy pymysql faker playwright python-dotenv
 
 # Executar o pipeline ETL (Processamento e Carga)
 python etl/pipeline.py

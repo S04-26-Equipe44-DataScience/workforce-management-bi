@@ -129,18 +129,59 @@ def generate_dim_cliente(colaboradores_df, n_assignments=200):
 def generate_fato_workforce(colaboradores_df, clientes_df, datas_df, regioes_df):
     records = []
     region_ids = regioes_df["region_id"].tolist()
-    date_ids   = datas_df["date_id"].tolist()
+    
+    # Create a map of date_id to period date
+    date_map = {row["date_id"]: row["period"] for _, row in datas_df.iterrows()}
+    date_ids = list(date_map.keys())
 
     for _, assignment in clientes_df.iterrows():
         # cada alocação tem entre 3 e 12 meses de registros
         n_months = random.randint(3, 12)
-        sampled_dates = random.sample(date_ids, min(n_months, len(date_ids)))
-
-        # busca colaborador aleatório ativo
-        ativos = colaboradores_df[colaboradores_df["status"] == "Active"]
-        employee = ativos.sample(1).iloc[0]
+        
+        # busca colaborador aleatório (pode ser ativo ou terminado)
+        employee = colaboradores_df.sample(1).iloc[0]
+        
+        # Filtra date_ids para conter apenas os períodos em que o colaborador estava ativo
+        # ou no mês em que foi desligado.
+        valid_date_ids = []
+        for d_id in date_ids:
+            p_date = date_map[d_id]
+            
+            # Garante formato datetime.date para comparação
+            h_date = employee["hire_date"]
+            if isinstance(h_date, str):
+                h_date = pd.to_datetime(h_date).date()
+            
+            if h_date > p_date:
+                continue
+                
+            t_date = employee["termination_date"]
+            if pd.notna(t_date):
+                if isinstance(t_date, str):
+                    t_date = pd.to_datetime(t_date).date()
+                
+                # Se o período for posterior ao mês do desligamento, desconsidera
+                if (p_date.year, p_date.month) > (t_date.year, t_date.month):
+                    continue
+            
+            valid_date_ids.append(d_id)
+            
+        if not valid_date_ids:
+            continue
+            
+        sampled_dates = random.sample(valid_date_ids, min(n_months, len(valid_date_ids)))
 
         for date_id in sampled_dates:
+            p_date = date_map[date_id]
+            t_date = employee["termination_date"]
+            
+            is_terminated_val = 0
+            if pd.notna(t_date):
+                if isinstance(t_date, str):
+                    t_date = pd.to_datetime(t_date).date()
+                if (p_date.year, p_date.month) == (t_date.year, t_date.month):
+                    is_terminated_val = 1
+            
             planned = round(random.uniform(140, 176), 1)
             worked  = round(planned * random.uniform(0.75, 1.10), 1)
             overtime = max(0, round(worked - planned, 1))
@@ -153,14 +194,15 @@ def generate_fato_workforce(colaboradores_df, clientes_df, datas_df, regioes_df)
                 "planned_hours":   planned,
                 "overtime_hours":  overtime,
                 "monthly_cost":    employee["monthly_cost"],
-                "goal_achievement": employee["goal_achievement"]
+                "goal_achievement": employee["goal_achievement"],
+                "is_terminated":   is_terminated_val
             })
     return pd.DataFrame(records)
 
 # ── EXECUÇÃO PRINCIPAL ───────────────────────────────────────
 def main():
     print("=" * 55)
-    print("  GlobalForce · Workforce BI — Geração de Mock Data")
+    print("  GlobalForce - Workforce BI - Geracao de Mock Data")
     print("=" * 55)
 
     print("\n[1/5] Gerando dim_data...")
@@ -202,7 +244,7 @@ def main():
 
         conn.execute(text("SET FOREIGN_KEY_CHECKS = 1"))
 
-    print("\n✅ Mock data gerado e carregado com sucesso!")
+    print("\n- Mock data gerado e carregado com sucesso!")
     print("\n Resumo:")
     print(f"   dim_data:         {len(dim_data):>5} registros")
     print(f"   dim_regiao:       {len(dim_regiao):>5} registros")

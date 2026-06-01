@@ -26,8 +26,8 @@
 | **Fonte** | `headcount.csv` → campo `termination_date` e `status` |
 | **Unidade** | % (percentual) |
 | **Frequência** | Mensal |
-| **Meta de referência** | < 5% ao mês (benchmark mercado) |
-| **Alerta** | > 5% → sinalizar em vermelho no dashboard |
+| **Meta de referência** | < 3% ao mês (benchmark do mock data — máximo realista com 99.375 colaboradores únicos em 36 meses) |
+| **Alerta** | > 3% → sinalizar em vermelho no dashboard |
 | **Stakeholder principal** | Gerente de Conta / Cliente |
 
 ---

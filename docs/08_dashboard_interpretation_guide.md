@@ -13,7 +13,7 @@ Os quatro cards do topo mostram um resumo consolidado de todo o período e todas
 
 | Card | O que representa | Como interpretar |
 |---|---|---|
-| **Turnover Médio** | % de colaboradores desligados em relação ao total | Quanto menor, melhor. Valores acima de 5% por mês indicam alta rotatividade e custo elevado de reposição |
+| **Turnover Médio** | % de colaboradores desligados em relação ao total | Quanto menor, melhor. Valores acima de 3% por mês indicam alta rotatividade e custo elevado de reposição (benchmark ajustado ao mock data: máximo realista de ~2.8%/mês com 99.375 colaboradores únicos) |
 | **Utilização de Capacidade** | % das horas planejadas que foram efetivamente trabalhadas | Próximo de 100% é ideal. Abaixo de 80% indica ociosidade; acima de 100% indica sobrecarga |
 | **Custo Médio (USD)** | Custo médio mensal por colaborador | Serve como baseline de custo. Variações grandes entre períodos ou regiões merecem investigação |
 | **Meta Média** | % médio de atingimento de metas entre todos os clientes | Acima de 80% é considerado saudável. Abaixo disso, algum cliente ou região pode estar com problemas |
@@ -27,8 +27,8 @@ Os quatro cards do topo mostram um resumo consolidado de todo o período e todas
 **O que mostra:** A evolução da taxa de desligamento de colaboradores mês a mês ao longo de 3 anos.
 
 **Como interpretar:**
-- Uma **linha estável e baixa** (abaixo de 5%) indica retenção saudável
-- **Picos pontuais** podem refletir reestruturações, sazonalidade ou encerramento de contratos com clientes
+- Uma **linha estável e baixa** (abaixo de 3%) indica retenção saudável
+- **Picos acima de 3%** podem refletir reestruturações, sazonalidade ou encerramento de contratos com clientes
 - Uma **tendência de alta** ao longo do tempo é um sinal de alerta — pode indicar insatisfação ou problemas de gestão
 - Compare os picos com os períodos de troca de cliente ou de região para identificar causas
 

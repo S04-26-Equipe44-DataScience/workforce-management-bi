@@ -52,12 +52,16 @@ Após quedas de conexão ou recriação de tabelas (via script ETL), o Metabase 
     - **Rescan field values** (Lê os novos valores e IDs das colunas).
     - **Sync database schema** (Atualiza a estrutura interna).
 
+> ⚠️ **Este procedimento deve ser executado após TODA execução do pipeline**, não apenas em caso de erro.
+> O pipeline recria as tabelas via DROP + CREATE, invalidando os metadados em cache do Metabase.
+> Incorpore este passo ao checklist de execução mensal (ver `05_end_to_end_flow.md`).
+
 ---
 
 ## 4. Recomendações de Infraestrutura
 O sistema atual opera com 3.1M de linhas. Para manter a performance caso o volume aumente:
 - **InnoDB Buffer Pool:** Atualmente em 128MB. Recomenda-se aumentar para **1GB** no arquivo `my.ini` (`innodb_buffer_pool_size=1G`) se houver memória RAM disponível no host.
-- **Evitar Drops:** O script `pipeline.py` faz `DROP TABLE`. Recomenda-se mudar para `TRUNCATE` no futuro para preservar os índices e metadados do Metabase.
+- **Evitar Drops:** O script `pipeline.py` faz `DROP TABLE`. Recomenda-se mudar para `TRUNCATE` no futuro para preservar os índices e metadados do Metabase, eliminando a necessidade do Rescan + Sync após cada carga.
 
 ---
 

@@ -96,12 +96,12 @@ Tabela central do modelo. Cada linha representa um registro mensal de um colabor
 ```sql
 -- Turnover %
 SELECT
-  d.period,
-  ROUND(COUNT(CASE WHEN c.status = 'Terminated' THEN 1 END) * 100.0 / COUNT(*), 2) AS turnover_pct
+  DATE(d.period) AS period,
+  ROUND(SUM(f.is_terminated) * 100.0 / COUNT(DISTINCT f.employee_id), 2) AS turnover_pct
 FROM fato_workforce f
-JOIN dim_colaborador c ON f.employee_id = c.employee_id
 JOIN dim_data d ON f.date_id = d.date_id
-GROUP BY d.period;
+GROUP BY DATE(d.period)
+ORDER BY DATE(d.period);
 
 -- Utilização de Capacidade %
 SELECT
@@ -121,9 +121,14 @@ GROUP BY r.region_name
 ORDER BY custo_total DESC;
 
 -- Atingimento de Metas % por Cliente
+-- Nota: goal_achievement é simulado por cliente no pipeline com médias distintas
+-- (Alpha Group ~93%, GlobalForce Internal ~88%, Delta Solutions ~85%,
+--  Epsilon Inc ~79%, Beta Corp ~72%)
 SELECT
   cl.client_name,
-  ROUND(AVG(f.goal_achievement), 2) AS meta_pct
+  ROUND(AVG(f.goal_achievement), 1) AS meta_pct,
+  CASE WHEN AVG(f.goal_achievement) >= 80 THEN 'Acima da Meta'
+       ELSE 'Abaixo da Meta' END AS status
 FROM fato_workforce f
 JOIN dim_cliente cl ON f.assignment_id = cl.assignment_id
 GROUP BY cl.client_name

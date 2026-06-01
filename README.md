@@ -94,10 +94,10 @@ Envio ao cliente
 - [x] Configurar geração automática do PDF com um clique (`etl/report_generator.py`)
 - [x] Automatizar atualização do pipeline de dados (`etl/pipeline.py`)
 - [x] Testar fluxo completo ponta a ponta
-- [ ] Ajustes e correções com base nos testes
+- [x] Ajustes e correções com base nos testes
 
 ### S4 — Entregáveis Finais
-- [ ] Manual do usuário (analista e gerente de conta)
+- [x] Manual do usuário (analista e gerente de conta)
 - [ ] Análise de mercado documentada
 - [ ] Proposta conceitual finalizada
 - [ ] Demo funcional gravada
@@ -109,6 +109,7 @@ Envio ao cliente
 
 | Entregável | Status |
 |---|---|
+| Manual do Usuário   | ✅ Concluído |
 | Proposta Conceitual | 🔲 Pendente |
 | Demo funcional | 🔄 Em andamento |
 | Documentação técnica | ✅ Concluída |
@@ -140,8 +141,13 @@ workforce-management-bi/
 │   ├── 02_kpi_definition.md       # Definição de KPIs
 │   ├── 03_data_model.md           # Modelo de dados
 │   ├── 04_data_dictionary.md      # Dicionário de dados
-│   ├── 05_end_to_end_flow.md      # Fluxo ponta a ponta
-│   └── 06_automated_email_delivery.md # Guia: Automação de E-mail
+│   ├── 05_end_to_end_flow.md           # Fluxo ponta a ponta
+│   ├── 06_automated_email_delivery.md    # Guia: Automação de E-mail
+│   ├── 07_maintenance_and_optimization.md # Manutenção e otimização
+│   └── 08_dashboard_interpretation_guide.md # Guia de interpretação do dashboard
+│
+├── manual/
+│   └── manual_usuario_globalforce.docx  # Manual do usuário (Analista + Gerente de Conta)
 │
 ├── reports/
 │   └── templates/             # Templates de relatório PDF
@@ -161,6 +167,7 @@ workforce-management-bi/
 | **sqlalchemy** | 2.x | Gerencia a conexão entre Python e MySQL |
 | **pymysql** | 1.x | Conector específico Python → MySQL (usado pelo SQLAlchemy) |
 | **faker** | latest | Geração de dados fictícios realistas para mock data |
+| **python-dotenv** | latest | Carrega variáveis de ambiente do arquivo .env |
 | **playwright** | latest | Motor de navegador headless para geração de PDFs |
 
 ### Instalação
@@ -171,7 +178,7 @@ git lfs install
 git lfs pull
 
 # 2. Instalar dependências Python
-pip install pandas numpy sqlalchemy pymysql faker playwright
+pip install pandas numpy sqlalchemy pymysql faker playwright python-dotenv
 
 # 3. Instalar drivers do navegador para o Playwright
 playwright install chromium
@@ -190,6 +197,9 @@ Metabase → visualiza os dados
 ```
 
 ---
+## 📸 Dashboard
+
+![GlobalForce Dashboard](docs/dashboard_preview.png)
 
 ## ⚠️ Observações
 
